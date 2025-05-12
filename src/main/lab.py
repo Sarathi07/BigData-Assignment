@@ -49,7 +49,7 @@ def process_data():
 
     # TO DO:  Query for Payment Method Popularity
     # Your task: Write an SQL query to find the popularity of each payment method used in transactions.
-    cursor.execute("""  select PaymentMethod, count(*) as usage_count from transactions group by PaymentMethod oder by usage_count desc """)
+    cursor.execute("""  select PaymentMethod, count(*) as usage_count from transactions group by PaymentMethod order by usage_count desc """)
     print("\nPayment Method Popularity:\n",cursor.fetchall())
     
 
@@ -68,9 +68,9 @@ def process_data():
     # TO DO:  Query for Top 5 High-Spending Customers
     # Your task: Write an SQL query to find the top 5 customers who spent the most in total.
     cursor.execute("""
-    SELECT customer_id, SUM(amount) AS total_spent
+    SELECT CustomerId, SUM(amount) AS total_spent
     FROM transactions
-    GROUP BY customer_id
+    GROUP BY CustomerId
     ORDER BY total_spent DESC
     LIMIT 5
     """)
@@ -97,11 +97,11 @@ def process_data():
     # TO DO:  Query for Top Spending Customers in Each City
     # Your task: Write an SQL query to find the top spending customer in each city using subqueries.
     cursor.execute("""
-    SELECT City, customer_id, MAX(total_spent) AS max_spent
+    SELECT City, CustomerId, MAX(total_spent) AS max_spent
     FROM (
-        SELECT City, customer_id, SUM(amount) AS total_spent
+        SELECT City, CustomerId, SUM(amount) AS total_spent
         FROM transactions
-        GROUP BY City, customer_id
+        GROUP BY City, CustomerId
     ) AS city_customer_totals
     GROUP BY City
     """)
